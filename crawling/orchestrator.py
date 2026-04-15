@@ -8,11 +8,11 @@ from ingestion.base import RawCompanyRecord
 from utils.logging import get_logger
 from .base import AbstractCrawler, CrawlResult, CrawlTarget
 from .web_crawler import WebCrawler
-from .sitemap_crawler import SitemapCrawler
 
 logger = get_logger(__name__)
 
-# URL path patterns to crawl per company domain
+# URL path patterns to attempt per company domain.
+# Ordered by expected signal value (highest first).
 TARGET_PATHS: list[tuple[str, str, bool]] = [
     # (path_suffix, label, requires_js)
     ("/careers", "careers_page", False),
@@ -21,7 +21,6 @@ TARGET_PATHS: list[tuple[str, str, bool]] = [
     ("/news", "news_room", False),
     ("/investors", "investor_relations", False),
     ("/about", "about_page", False),
-    ("/sitemap.xml", "sitemap", False),
 ]
 
 
@@ -29,14 +28,15 @@ class CrawlingOrchestrator:
     """
     For each RawCompanyRecord:
     1. Resolves a list of CrawlTarget URLs to visit
-    2. Selects the appropriate crawler (WebCrawler vs SitemapCrawler)
-    3. Runs crawls with concurrency control
-    4. Returns all CrawlResult objects for downstream parsing
+    2. Dispatches them to WebCrawler with concurrency control
+    3. Returns all CrawlResult objects for downstream parsing
+
+    Sitemap discovery is deferred until WebCrawler is implemented and
+    validated against real targets.
     """
 
     def __init__(self) -> None:
-        self._web_crawler: AbstractCrawler = WebCrawler()
-        self._sitemap_crawler: AbstractCrawler = SitemapCrawler()
+        self._crawler: AbstractCrawler = WebCrawler()
 
     def run(self, records: list[RawCompanyRecord]) -> list[CrawlResult]:
         """
@@ -48,7 +48,7 @@ class CrawlingOrchestrator:
         logger.info("crawling.targets_built", count=len(targets))
 
         results: list[CrawlResult] = []
-        # TODO: dispatch targets to appropriate crawlers concurrently
+        # TODO: self._crawler.crawl_many(targets)
         return results
 
     def _build_targets(self, records: list[RawCompanyRecord]) -> list[CrawlTarget]:

@@ -8,11 +8,14 @@ Responsibilities
 - Respect robots.txt, honour rate limits, retry transiently failed requests
 - Return CrawlResult objects containing raw HTML, HTTP metadata, and timestamps
 
-Two crawlers are provided:
-  WebCrawler    — async HTTP crawls via httpx (fast, stateless pages)
-  SitemapCrawler — discovers page URLs via sitemap.xml before crawling
+One crawler is currently provided:
+  WebCrawler — async HTTP crawls via httpx (fast, stateless pages)
 
-The CrawlingOrchestrator selects the appropriate crawler per URL.
+SitemapCrawler (sitemap.xml discovery) will be added once WebCrawler
+is implemented and validated against real targets.
+
+The CrawlingOrchestrator builds URL targets from company domains and
+dispatches them to the crawler.
 """
 
 from .base import AbstractCrawler, CrawlResult

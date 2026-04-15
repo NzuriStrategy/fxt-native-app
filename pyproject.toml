@@ -26,8 +26,7 @@ lxml = "^5.2"
 
 # AI / LLM
 anthropic = "^0.28"
-openai = "^1.30"          # optional fallback provider
-tiktoken = "^0.7"
+# openai and tiktoken are not yet used; add when a second provider is integrated
 
 # Data models & validation
 pydantic = "^2.7"
@@ -38,12 +37,10 @@ sqlalchemy = "^2.0"
 alembic = "^1.13"
 psycopg2-binary = "^2.9"  # Postgres driver
 
-# Task scheduling & concurrency
-apscheduler = "^3.10"
-tenacity = "^8.3"         # retry logic
+# Resilience
+tenacity = "^8.3"         # retry logic with exponential back-off
 
 # Utilities
-python-dotenv = "^1.0"
 structlog = "^24.1"
 rich = "^13.7"            # CLI output
 

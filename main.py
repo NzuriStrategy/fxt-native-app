@@ -76,9 +76,9 @@ def run_pipeline(args: argparse.Namespace) -> int:
 
     Returns an exit code: 0 = success, non-zero = failure.
 
-    Data flows through stages as plain Python objects (Pydantic models) defined in
-    storage.models. No stage writes directly to the database — only the final
-    storage stage does, making each stage independently testable.
+    Data flows through stages as plain Python @dataclass objects.  No stage
+    writes to the database directly — only the storage stage does, making every
+    preceding stage independently testable with synthetic input objects.
     """
     logger.info("pipeline.start", env=settings.env, source=args.source, dry_run=args.dry_run)
 
@@ -150,8 +150,10 @@ def run_pipeline(args: argparse.Namespace) -> int:
     # Output: list[EnrichedLead]
     # ------------------------------------------------------------------
     if args.skip_ai:
+        # Without AI enrichment we have ScoredLeads, not EnrichedLeads.
+        # Storage will persist the score/tier only; AI fields will be NULL.
         logger.info("stage.ai.skipped")
-        enriched_leads = qualified  # type: ignore[assignment]
+        enriched_leads: list = qualified
     else:
         logger.info("stage.ai.start")
         enricher = AIEnrichmentOrchestrator()
