@@ -231,7 +231,6 @@ class Page(Base):
     def is_parsed(self) -> bool:
         return self.body_text is not None
 
-    @property
     def content_changed(self, previous_hash: str) -> bool:
         return self.content_hash != previous_hash
 
