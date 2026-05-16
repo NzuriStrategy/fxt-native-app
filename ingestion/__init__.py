@@ -13,10 +13,13 @@ IngestionOrchestrator based on the `source_filter` argument passed from main.py.
 """
 
 from .base import AbstractIngestor, RawCompanyRecord
+from .company_registry import CompanyRegistryIngestor, CSVIngestionResult
 from .orchestrator import IngestionOrchestrator
 
 __all__ = [
     "AbstractIngestor",
     "RawCompanyRecord",
+    "CompanyRegistryIngestor",
+    "CSVIngestionResult",
     "IngestionOrchestrator",
 ]

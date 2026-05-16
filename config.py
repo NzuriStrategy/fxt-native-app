@@ -22,7 +22,10 @@ class DatabaseSettings(BaseModel):
 
 
 class AISettings(BaseModel):
-    anthropic_api_key: SecretStr = Field(description="Anthropic API key")
+    # Optional so early pipeline stages (CSV ingestion, crawling, parsing)
+    # can run without an Anthropic key.  The AI enrichment stage will raise
+    # clearly at call time if the key is missing.
+    anthropic_api_key: SecretStr | None = None
     default_model: str = "claude-sonnet-4-6"
     max_tokens: int = 2048
     temperature: float = 0.0
@@ -37,7 +40,9 @@ class CrawlingSettings(BaseModel):
 
 class IngestionSettings(BaseModel):
     news_api_key: SecretStr | None = None
-    # Add source-specific keys here as integrations are built
+    # Default CSV file used by CompanyRegistryIngestor when no path is given.
+    # Override with INGESTION__CSV_PATH=/path/to/file.csv in .env
+    csv_path: str | None = None
 
 
 class ScoringSettings(BaseModel):

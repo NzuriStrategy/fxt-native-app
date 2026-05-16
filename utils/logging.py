@@ -34,7 +34,6 @@ def configure_logging() -> None:
     shared_processors: list = [
         structlog.contextvars.merge_contextvars,
         structlog.stdlib.add_log_level,
-        structlog.stdlib.add_logger_name,
         structlog.processors.TimeStamper(fmt="iso"),
         structlog.processors.StackInfoRenderer(),
     ]
@@ -68,4 +67,4 @@ def get_logger(name: str) -> structlog.stdlib.BoundLogger:
         logger.info("event.name", key="value")
     """
     configure_logging()
-    return structlog.get_logger(name)
+    return structlog.get_logger(name).bind(logger=name)

@@ -1,0 +1,24 @@
+company_name,domain,source
+Acme Logistics Corp,acmelogistics.com,crm_export
+Beta Distribution Partners,https://www.betadist.com,crm_export
+Gamma Fulfillment LLC,http://gammafulfill.com,sales_lead
+Delta Supply Chain,www.deltasupplychain.com,trade_show
+Echo Warehousing Services,echo-warehousing.com,linkedin
+Foxtrot 3PL Solutions,https://foxtrot3pl.com,news_feed
+Gulf Coast Cold Storage,gulfcoastcold.com,crm_export
+Harbor Freight Logistics,https://www.harborfreightlogistics.com,crm_export
+Iron Ridge Industrial,ironridgeindustrial.com,crm_export
+Jupiter Cold Chain,https://jupitercoldchain.com/,trade_show
+Keystone Distribution,keystonedistribution.com,crm_export
+Lima Peak Logistics,www.limapeak.com,sales_lead
+Meridian Warehouse Group,meridianwarehouse.com,crm_export
+Nexus Supply Solutions,https://www.nexussupply.com,news_feed
+Orbit Fulfillment Center,orbit-fulfillment.com,linkedin
+Pacific Rim Distribution,pacificrimdist.com,trade_show
+Redwood Supply Co,redwoodsupply.com,crm_export
+Summit Cold Storage,summitcold.com,trade_show
+Gamma Fulfillment (Duplicate Row),GAMMAFULFILL.COM,manual
+Keystone Distribution Inc,https://keystonedistribution.com,crm_export
+,invaliddomain.com,manual
+Missing Domain Company,,manual
+Not A Real Domain,notadomain,manual
